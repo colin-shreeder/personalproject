@@ -1,26 +1,10 @@
 const bcrypt = require('bcrypt');
 
 module.exports = {
-    register: async (req, res) => {
-        const db = req.app.get('db');
-        const {email, password} = req.body;
-        const [foundUser] = await db.check_user_exists(email);
-        if (foundUser){
-          res.status(404).send('Email already exists')
-        }
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(password, salt);
-        const [createUser] = await db.create_user([email, hash]);
-        req.session.user = {
-          id: createUser.id,
-          email: createUser.email
-        }
-        res.status(200).send(req.session.user);
-    },
 
-    getPosts: async (req, res) => {
+    getUserPosts: async (req, res) => {
       const {id} = req.params;
-      const {userposts, search} = req.query;
+      const {userposts, search} = req.body;
       const db = req.app.get('db');
       
       if(userposts === true && search !== null) {
@@ -33,37 +17,56 @@ module.exports = {
           const foundPost = db.posts.where({"author_id !=": id})
           res.status(200).send(foundPost)
       } else {
-          const posts = await db.get_posts();
+          const posts = await db.get_user_posts();
           res.status(200).send(posts);
       }
   },
 
-  getPost: async (req, res) => {
-    const {postid} = req.params;
-    const db = req.app.get('db');
+  getAllPosts: async (req, res, next) => {
+    const db = req.app.get("db");
+  
+    db.get_all_posts()
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => res.status(500).send(err));
+  },
 
-    const singlePost = await db.get_post(postid)
-    if (singlePost) {
-        res.status(200).send(singlePost[0])
-    } else {
-        res.status(404).send("Oops! We cannot display posts at this time.")
-    }
-},
-
-logout: (req, res) => {
-  req.session.destroy();
-  res.sendStatus(200);
-},
 
 delete: ( req, res, next ) => {
   const dbInstance = req.app.get('db');
-  const { id } = req.params;
+  const { postid } = req.params;
 
-  dbInstance.delete( id )
-    .then( (inventory) => res.status(200).send(inventory) )
+  dbInstance.delete( postid )
+    .then( (response) => res.status(200).send(response) )
     .catch( err => {
       res.status(500).send({errorMessage: "Oops! Something went wrong. Our engineers have been informed!"});
       console.log(err)
     } );
-}
+},
+
+createPost: (req, res, next) => { 
+  let author_id = req.session.user.userid;
+  let { title, img, content, upvotes } = req.body;
+  const db = req.app.get("db");
+  console.log(req.body)
+  console.log(req.session)
+
+  db.create_post([title, img, content, author_id, upvotes])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+  },
+
+  getPost: (req,res,next) => {
+  let { postid } = req.params;
+  const db = req.app.get("db");
+
+  db.get_by_id([postid])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+  }
 }

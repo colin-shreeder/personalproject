@@ -5,6 +5,7 @@ const app = express();
 const controller = require("./controller");
 const session = require('express-session')
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
+const authController = require("./authcontroller");
 
 
 app.use(express.json());
@@ -28,12 +29,16 @@ massive({
 
 
 
-app.post('/auth/register', controller.register);
-app.get('/api/posts/:userid', controller.getPosts);
+app.post('/auth/register', authController.register);
+app.post('/auth/login', authController.login);
+app.post('/api/auth/logout', authController.logout);
+
+
+app.post('/api/create', controller.createPost);
+app.get('/api/posts', controller.getAllPosts);
+app.post('/api/posts/:userid', controller.getUserPosts);
+app.delete('/api/post/:postid', controller.delete);
 app.get('/api/post/:postid', controller.getPost);
-app.post('/api/auth/login', controller.login);
-app.post('/api/auth/logout', controller.logout);
-app.delete('/api/auth/delete/:id', controller.logout);
 
 
 

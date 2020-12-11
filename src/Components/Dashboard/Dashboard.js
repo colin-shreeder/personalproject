@@ -1,91 +1,135 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import axios from 'axios';
-import {getUser} from '../../Redux/reducer'
-import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
 
-class Auth extends Component {
-  constructor(props) {
-    super(props);
+class Dashboard extends Component {
+  constructor() {
+    super();
     this.state = {
-      email: '',
-      password: '',
-      loggedInUser: {}
-    };
+      posts: [],
+      search: "",
+      userposts: true
+    }
   }
 
-  async login() {
-    let { email, password } = this.state;
-    let res = await axios.post('/auth/login', {
-      email,
-      password
-    });
-    this.props.getUser();
-    this.setState({ 
-      loggedInUser: res.data, 
-      email: '', 
-      password: '' });
-  }
+resetSearch() {
+  this.setState({ 
+    search: "", 
+    userposts: true });
+}
 
-  async signup() {
-    let { email, password } = this.state;
-    let res = await axios.post('/auth/register', {
-      email,
-      password
-    });
-    this.props.getUser();
-    this.setState({ 
-      loggedInUser: res.data, 
-      email: '', 
-      password: '' });
-  }
+  handleChange(e){
+    this.setState({
+        [e.target.name]: e.target.value
+    })
+}
 
-  async logout() {
-    axios.get('/auth/logout');
-    this.setState({ loggedInUser: {} });
-  }
+componentDidMount () {
+  this.getAllPosts()
+}
 
-  render() {
-    let { loggedInUser, email, password } = this.state;
-    return (
-      <div className="form-container done">
-        <div className="login-form">
-          <h3>Auth w/ Bcrypt</h3>
-          <div>
-            <input
-              value={email}
-              onChange={e => this.setState({ email: e.target.value })}
-              type="text"
-              placeholder="Email"
-            />
-          </div>
-          <div>
-            <input
-              value={password}
-              type="password"
-              onChange={e => this.setState({ password: e.target.value })}
-              placeholder="password"
-            />
-          </div>
-          {loggedInUser.email ? (
-            <button onClick={() => this.logout()}>Logout</button>
-          ) : (
-            <button onClick={() => this.login()}>Login</button>
-          )}
-          <button onClick={() => this.signup()}>Sign up</button>
-        </div>
-
-        <hr />
-
-        <h4>Status: {loggedInUser.email ? 'Logged In' : 'Logged Out'}</h4>
-        <h4>User Data:</h4>
-        <p> {loggedInUser.email ? JSON.stringify(loggedInUser) : 'No User'} </p>
-        <br />
-      </div>
-    );
+getPosts = (id, search, userposts, upvotes) => {
+  if (this.userposts === true){
+    this.getUserPosts(id,search,userposts, upvotes);
+  } else {
+    this.getAllPosts()
   }
 }
 
-const mapStateToProps = state => state;
-  console.log(mapStateToProps)
+getAllPosts = () => {
+  axios.get(`/api/posts`).then(res => {
+    this.setState({ 
+      posts: res.data 
+    });
+  });
+}
 
-  export default connect(null, {getUser})(Auth);
+getUserPosts(id, search, userposts) {
+  axios
+    .post(`/api/posts/${id}`, { 
+      search: search, 
+      userposts: userposts})
+    .then(res => {
+      this.setState({ posts: res.data });
+    })
+    .catch(err => console.log(err));
+}
+
+toggleCheck=(e)=>{
+  this.setState({
+    userposts: e.target.checked
+  })
+}
+
+upVote = (votes) => {
+  votes = votes+1
+  console.log(votes)
+}
+
+  handleSubmit(e){
+  e.preventDefault()
+}
+
+    render() {
+
+      const {posts} = this.state;
+      console.log(posts)
+      const displayPosts = posts.map((e) => {
+          return <div key={e.id} to={`/post/${e.id}`}>
+              <div>
+                  {console.log(e)}
+                  r/Community - Posted by {e.username}
+                  <br></br>
+                  Upvotes: {e.upvotes}
+                  <br></br>
+                  <button onClick={()=>this.upVote(e.upvotes)}>Upvote</button>
+                  <button>Downvote</button>
+                  <br></br>
+                  <Link to={`/post/${e.id}`}>
+                    {e.title}
+                    <br></br>
+                    <img src={e.img}/>
+                  </Link>
+                  <br></br>
+                  <br></br>
+              </div>
+          </div>
+      });
+          
+
+      return (
+        <div className="Dashboard">
+            <h1>Dashboard</h1>
+
+            <Link to="/submit"> <input placeholder="Create Post" type="text" onChange={(e) => this.handleChange(e)} name="search"/> </Link>
+            <button>Post</button>
+
+            
+            <input onClick={(e)=>{
+              this.toggleCheck(e)
+              this.getPosts()
+              }} type="checkbox" id="userposts" name="userposts" defaultChecked></input>
+            <label for="userposts"> My Posts</label>
+              
+            <br></br>
+            <br></br>
+              
+              <button type="button"> New </button>
+              <button type="button"> Old </button>
+              <button type="button"> Top </button>
+              <button type="button"> Bottom </button>
+
+            <br></br>
+            <br></br>
+            <br></br>
+
+              {displayPosts}
+        </div>
+      );
+    }
+  }
+
+const mapStatetoProps = state => state;
+
+export default connect(mapStatetoProps)(Dashboard);

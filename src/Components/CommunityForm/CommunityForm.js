@@ -9,10 +9,9 @@ class Form extends Component {
     super(props);
     
     this.state = {
-        title: '',
-        img: '',
-        content: '',
-        votes: 0
+        name: '',
+        description: '',
+        topics: ''
     }
 }
 
@@ -42,24 +41,23 @@ handleSubmit(e){
     render() {
       return (
         <div className="Form">
-            <h1>Form</h1>
+            <h1>Create a community</h1>
           <form onSubmit={this.handleSubmit}>
               <label>
-                  Title:
+                  Name:
                   <br></br>
                   <input type="text" onChange={(e) => this.handleChange(e)} name="url"/>
               </label>
 
-              // the image url preview needs to go here somehow! It'll be rendering state, but i don't want it to the render the text as it's typed, rather, just the image once the entire image url is typed out. And if it's not all typed out, then it's just that image icon thing.
               <br></br>
               <label>
-                  Image URL:
+                  Topics:
                   <br></br>
                   <input type="text" onChange={(e) => this.handleChange(e)} name="name"/>
               </label>
               <br></br>
               <label>
-                  Content:
+                  Description:
                   <br></br>
                   <input type="number" onChange={(e) => this.handleChange(e)} name="price"/>
               </label>
@@ -71,7 +69,7 @@ handleSubmit(e){
             this.postRequest();
             this.handleSubmit(e);
             this.resetForm()}}>
-              Post
+              Create Community
               </button> </Link>
 
             
