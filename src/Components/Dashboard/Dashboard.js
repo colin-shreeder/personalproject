@@ -9,7 +9,7 @@ class Dashboard extends Component {
     this.state = {
       posts: [],
       search: "",
-      userposts: true,
+      userposts: true
     };
   }
 

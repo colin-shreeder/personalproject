@@ -12,8 +12,28 @@ class Nav extends Component {
     this.state = {
       userid: '',
       username: '',
-      community: ['Lime', 'Coconut', 'Grape', 'Banana']
-    };
+      communities: [],
+      community: ''
+    }
+    this.communityChange = this.communityChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAllCommunities();
+  }
+  
+  getAllCommunities = () => {
+    axios.get(`/api/getcommunities`).then((res) => {
+      this.setState({
+        communities: res.data,
+      });
+    });
+  };
+
+  communityChange(e){
+    this.setState({
+        community: e.target.value
+    })
   }
     
 
@@ -25,20 +45,24 @@ class Nav extends Component {
   }
 
     render() {
-      let options = this.state.community.map((e,index) => {
+      let {community}=this.state
+      
+      let communityOptions = this.state.communities.map((e) => {
         return (
-          <option value={e}> {e} </option>
+          <option value={e.id}> {e.name} </option>
         )
       })
+      console.log(community)
       return (
         <div className="nav">
 
             <div className="navelements">
             <Link to='/dashboard' className="links"> <button> Home </button> </Link>
 
-            <select>
-              <option selected value="home">Home</option>
-              {options}
+            Selected Community:
+            <select onChange={(e) => this.communityChange(e)}>
+            <option selected value="home">All</option>
+              {communityOptions}
             </select>
 
             <input type="text" placeholder="Search"/>
