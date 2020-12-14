@@ -46,6 +46,8 @@ app.put("/api/edit/:postid", controller.updatePost);
 app.put("/api/upvote/:postid/:upvotes", controller.upvote);
 app.put("/api/downvote/:postid/:upvotes", controller.downvote);
 
+app.post('/api/createcommunity', controller.createCommunity);
+
 
 
 app.use(express.static(__dirname + '/../build'))

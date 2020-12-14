@@ -57,6 +57,17 @@ createPost: (req, res, next) => {
     .catch(err => res.status(500).send(err));
   },
 
+  createCommunity: (req, res, next) => { 
+    let { name, description, topics } = req.body;
+    const db = req.app.get("db");
+  
+    db.create_community([name, description, topics])
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => res.status(500).send(err));
+    },
+
   getPost: (req,res,next) => {
   let { postid } = req.params;
   const db = req.app.get("db");
