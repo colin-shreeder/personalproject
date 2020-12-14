@@ -7,6 +7,8 @@ const session = require('express-session')
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const authController = require("./authcontroller");
 
+const path = require('path')
+
 
 app.use(express.json());
 
@@ -39,6 +41,17 @@ app.get('/api/posts', controller.getAllPosts);
 app.post('/api/posts/:userid', controller.getUserPosts);
 app.delete('/api/post/:postid', controller.delete);
 app.get('/api/post/:postid', controller.getPost);
+app.put("/api/edit/:postid", controller.updatePost);
+
+app.put("/api/upvote/:postid/:upvotes", controller.upvote);
+app.put("/api/downvote/:postid/:upvotes", controller.downvote);
+
+
+
+app.use(express.static(__dirname + '/../build'))
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 
 

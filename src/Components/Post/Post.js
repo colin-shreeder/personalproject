@@ -77,10 +77,10 @@ class Post extends Component {
 
                 # of Comments
                 <button>Share</button>
-                <button>Save</button>
+                <button>Bookmark</button>
                 <button onClick={()=>{
             this.deleteById();}}>Delete</button>
-                <Link to={`/post/edit/${id}`}><button>Edit</button></Link>
+                <Link to={`/edit/${id}`}><button>Edit</button></Link>
                 <br></br>
                 <br></br>
                 Comment as username

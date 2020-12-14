@@ -49,8 +49,6 @@ createPost: (req, res, next) => {
   let author_id = req.session.user.userid;
   let { title, img, content, upvotes } = req.body;
   const db = req.app.get("db");
-  console.log(req.body)
-  console.log(req.session)
 
   db.create_post([title, img, content, author_id, upvotes])
     .then(response => {
@@ -68,5 +66,43 @@ createPost: (req, res, next) => {
       res.status(200).send(response);
     })
     .catch(err => res.status(500).send(err));
+  },
+
+  updatePost: (req, res, next) => {
+    let { title, content } = req.body;
+    let {postid} = req.params;
+  
+    console.log(title, content, postid);
+    const db = req.app.get("db");
+  
+    db.update_post([title, content, postid])
+      .then(response => {
+        console.log(response)
+        res.status(200).send(response);
+      })
+      .catch(err => res.status(500).send(err));
+  },
+
+  upvote: (req, res, next) => {
+    let {postid, upvotes} = req.params;
+    const db = req.app.get("db");
+
+    db.upvote(upvotes, postid)
+    .then (response => {
+      res.status(200).send(response);
+    })    
+
+
+  },
+
+  downvote: (req, res, next) => {
+    let {postid, upvotes} = req.params;
+    const db = req.app.get("db");
+
+    db.downvote(upvotes, postid)
+    .then (response => {
+      res.status(200).send(response);
+    })  
+    
   }
 }

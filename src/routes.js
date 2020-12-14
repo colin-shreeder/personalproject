@@ -16,6 +16,6 @@ export default (
       <Route component={PostForm} path="/submit" />
       <Route component={Post} path="/post/:postid" />
       <Route component={CommunityForm} path="/submit_community" />
-      <Route component={PostEdit} path="/post/edit/:postid"/>
+      <Route component={PostEdit} path="/edit/:postid"/>
     </Switch>
   );

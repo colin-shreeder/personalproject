@@ -11,12 +11,14 @@ CREATE TABLE posts (
     img TEXT,
     content TEXT NOT NULL,
     author_id INTEGER REFERENCES users(id),
-    upvotes INTEGER
+    upvotes INTEGER,
+    community INTEGER REFERENCES community(id)
 );
 
 CREATE TABLE community (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description VARCHAR(100) NOT NULL,
-    community_id INTEGER REFERENCES 
+    topics VARCHAR(100) NOT NULL,
+    posts_id INTEGER REFERENCES posts(id)
 );

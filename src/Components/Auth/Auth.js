@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {getUser} from '../../Redux/reducer'
 import {connect} from 'react-redux';
+import '../Auth/Auth.css'
+
 
 class Auth extends Component {
   constructor(props) {
@@ -45,25 +47,27 @@ class Auth extends Component {
   render() {
     let { loggedInUser, username, password } = this.state;
     return (
-      <div className="form-container done">
+      <div className="form-container">
         <div className="login-form">
-          <h3>Shreddit</h3>
-          <div>
+          
+        
+          <h3>shreddit</h3>
+          
             <input
               value={username}
               onChange={e => this.setState({ username: e.target.value })}
               type="text"
               placeholder="Username"
             />
-          </div>
-          <div>
+          
+          
             <input
               value={password}
               type="password"
               onChange={e => this.setState({ password: e.target.value })}
               placeholder="Password"
             />
-          </div>
+            <br></br>
           {loggedInUser.username ? (
             <button onClick={() => this.logout()}>Logout</button>
           ) : (

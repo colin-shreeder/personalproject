@@ -2,9 +2,20 @@ import React, { Component } from "react";
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import axios from 'axios'
+import '../Nav/Nav.css'
 
 
 class Nav extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      userid: '',
+      username: '',
+      community: ['Lime', 'Coconut', 'Grape', 'Banana']
+    };
+  }
+    
 
   handleclicklogout() {
     axios.post(`/api/auth/logout`).then(res => {
@@ -14,19 +25,21 @@ class Nav extends Component {
   }
 
     render() {
+      let options = this.state.community.map((e,index) => {
+        return (
+          <option value={e}> {e} </option>
+        )
+      })
       return (
-        <div className="Nav">
+        <div className="nav">
 
-            <h1>Nav</h1>
-
+            <div className="navelements">
             <Link to='/dashboard' className="links"> <button> Home </button> </Link>
 
             <select>
               <option selected value="home">Home</option>
-              <option value="lime">Lime</option>
-              <option value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
-          </select>
+              {options}
+            </select>
 
             <input type="text" placeholder="Search"/>
 
@@ -35,7 +48,7 @@ class Nav extends Component {
             <Link to='/submit_community' className="links"> <button> Create Community </button> </Link>
 
             <Link to='/' className="links"> <button onClick={() => this.handleclicklogout()}> Logout </button> </Link>
-            
+            </div>
         </div>
       );
     }
