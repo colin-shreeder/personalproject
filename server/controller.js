@@ -32,6 +32,16 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
 
+  getAllCommunities: async (req, res, next) => {
+    const db = req.app.get("db");
+  
+    db.get_all_communities()
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => res.status(500).send(err));
+  },
+
 
 delete: ( req, res, next ) => {
   const dbInstance = req.app.get('db');
@@ -46,11 +56,12 @@ delete: ( req, res, next ) => {
 },
 
 createPost: (req, res, next) => { 
-  let author_id = req.session.user.userid;
-  let { title, img, content, upvotes } = req.body;
+  let author_id = req.params;
+  let { title, img, content, upvotes, community} = req.body;
   const db = req.app.get("db");
+  console.log (title, img, content, upvotes, community, author_id)
 
-  db.create_post([title, img, content, author_id, upvotes])
+  db.create_post([title, img, content, author_id, upvotes, community])
     .then(response => {
       res.status(200).send(response);
     })

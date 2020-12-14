@@ -15,17 +15,32 @@ class PostForm extends Component {
         img: '',
         content: '',
         upvotes: 0,
+        communities: [],
         community: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.communityChange = this.communityChange.bind(this);
 }
+
+componentDidMount() {
+  this.getAllCommunities();
+}
+
+getAllCommunities = () => {
+  axios.get(`/api/getcommunities`).then((res) => {
+    this.setState({
+      communities: res.data,
+    });
+  });
+};
 
 // axios post request. Posting title, img, and content off of the req.body. Returning?? I suppose it could be returning something...if this function was getting passed down from Dashboard.js? Cause then it'd return the updated arrary of objects that'll be displayed on the dashboard. But how should it be here?  Also it's saying tp pull user id off of redux state...why tho? Does it need to go on this axios request? Sounds like the endpoint will accept a parameter. Ohhh I think it's to tie the post back to the user who posted it. But that will becoming from react redux, while title image and content will be coming off the request.body.
 // It also says, once the response comes back from the server, redirect the user to the Dashboard. Is that done just with the link like below...or some other way? // All of this on lines 279-296
 
-createPost(title, img, content, upvotes) {
+createPost(title, img, content, upvotes, community) {
  console.log(this.state)
   axios
-    .post(`/api/create`, { title, img, content, upvotes })
+    .post(`/api/create`, { title, img, content, upvotes, community })
     .then(res => {
       // console.log(res);
       this.setState({ posts: res.data });
@@ -42,10 +57,7 @@ createPost(title, img, content, upvotes) {
 
 
 // function to clear/reset values. Actually is this necessary since we're linking to Dashboard when posting? I think we need to clear state or else next time you post, it'll post two things instead of one. It needs to simply add to state of what's on dashboard and then disappear from here.
-resetForm = () => {
-  this.setState(this.baseState)
-  // reset_function();
-}
+
 
   
   
@@ -55,12 +67,24 @@ resetForm = () => {
     })
 }
 
+communityChange(e){
+  this.setState({
+      community: e.target.value
+  })
+}
+
 handleSubmit(e){
   e.preventDefault()
 }
 
     render() {
-      let {title, img, content, upvotes}=this.state
+      let {title, img, content, upvotes,community}=this.state
+      let communityOptions = this.state.communities.map((e) => {
+        return (
+          <option value={e.id}> {e.name} </option>
+        )
+      })
+      console.log(community)
       return (
         <div className="Form">
             <h1>Create a post</h1>
@@ -69,12 +93,12 @@ handleSubmit(e){
           Choose a community: 
           <br></br>
 
-          <select>
-              <option value="grapefruit">Grapefruit</option>
-              <option value="lime">Lime</option>
-              <option selected value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
-          </select>
+       
+
+          <select onChange={(e) => this.communityChange(e)}>
+              {communityOptions}
+            </select>
+
 
           <br></br>
               <label>
@@ -103,9 +127,8 @@ handleSubmit(e){
          <Link to='/dashboard' className="links"> <button type="submit"
             
             onClick={(e)=>{
-            this.createPost(title, img, content, upvotes);
-            this.handleSubmit(e);
-            this.resetForm()}}>
+            this.createPost(title, img, content, upvotes, community);
+            this.handleSubmit(e);}}>
               Post
               </button> </Link>
 
