@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import '../Nav/Nav.css'
+import redditlogo from "../Nav/redditlogo.png";
 
 
 class Nav extends Component {
@@ -47,32 +48,29 @@ class Nav extends Component {
     render() {
       let {community}=this.state
       
-      let communityOptions = this.state.communities.map((e) => {
-        return (
-          <option value={e.id}> {e.name} </option>
-        )
-      })
       console.log(community)
       return (
+        
         <div className="nav">
 
-            <div className="navelements">
-            <Link to='/dashboard' className="links"> <button> Home </button> </Link>
+            
+            
+              <Link to='/dashboard' className="links">
+              <img src={redditlogo} alt="" height="50" width="50" />
+              </Link>
 
-            Selected Community:
-            <select onChange={(e) => this.communityChange(e)}>
-            <option selected value="home">All</option>
-              {communityOptions}
-            </select>
+              <Link to='/dashboard' className="links"> <p>HOME</p> </Link>
+              
 
-            <input type="text" placeholder="Search"/>
+              <input type="text" placeholder="Search"/>
 
-            <Link to='/submit' className="links"> <button> Create Post </button> </Link>
+              <Link to='/submit' className="links"> <p>CREATE POST</p>  </Link>
 
-            <Link to='/submit_community' className="links"> <button> Create Community </button> </Link>
+              <Link to='/submit_community' className="links"> <p> CREATE COMMUNITY </p>  </Link>
 
-            <Link to='/' className="links"> <button onClick={() => this.handleclicklogout()}> Logout </button> </Link>
-            </div>
+              <Link to='/' className="links"  onClick={() => this.handleclicklogout()}>  <p>LOGOUT</p> </Link>
+            
+
         </div>
       );
     }

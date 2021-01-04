@@ -1,0 +1,75 @@
+.upvotes {
+    background-color: #F8F9FA;
+    width: 75px;
+    margin: 10px 5px 0px 0px;
+}
+
+.container {
+    background-color: #F8F9FA;
+    border-style: solid;
+    width: 1025px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 10px;
+    border-radius: 5px;
+    border-width: thin;
+}
+
+.postbody {
+    border-style: none none none solid;
+    width: 925px;
+    border-width: thin;
+}
+
+.community {
+    display: flex;
+    justify-content: left;
+    margin: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.title {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 10px 10px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+:link {
+    text-decoration: none;
+}
+
+.image {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 10px 10px;
+}
+
+.unknowntwo {
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard {
+    background-color: #DAE0E6;
+}
+
+.rotateimg180 {
+    transform: rotate(180deg);
+    margin: 4px 0px 0px 0px;
+}
+
+.downvote {
+    margin: 4px 0px 0px 0px;
+}
+
+.downvote:hover {
+    background-color: gray;
+  }
+
+  .rotateimg180:hover {
+    background-color: gray;
+  }

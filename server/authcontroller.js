@@ -34,9 +34,8 @@ module.exports = {
               username: foundUser.username
           }
           res.status(200).send(req.session.user);
-      } else {
-          res.status(401).send('Incorrect login information')
-      }
+      } 
+      
   },
 
       logout: (req, res) => {

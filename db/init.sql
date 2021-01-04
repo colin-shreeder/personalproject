@@ -4,7 +4,7 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 
-CREATE TABLE community (
+CREATE TABLE communities (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description VARCHAR(100) NOT NULL,

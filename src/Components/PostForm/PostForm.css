@@ -1,0 +1,48 @@
+.Form {
+    background-color: #DAE0E6;
+    height: 800px;
+    width: 100%;
+}
+
+.header {
+    height: 100px;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    align-items: flex-end;
+    font-size: 12px;
+    border: solid none solid none;
+    border-color: white;
+    border-style: none none solid none;
+    border-width: 2px;
+}
+
+.dropdown {
+    height: 70px;
+    width: 70%;
+    margin: auto;
+    background-color: #DAE0E6;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formbox {
+    background-color: white;
+    display: flex;
+    width: 70%;
+    height: 400px;
+    margin: auto;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.lowerbox {
+    height: 50px;
+    width: 70%;
+    background-color: white;
+    margin: auto;
+    border-radius: 0px 0px 10px 10px;
+}
+

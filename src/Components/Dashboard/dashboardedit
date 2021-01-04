@@ -1,4 +1,48 @@
-import React, { Component } from "react";
+ componentDidMount() {
+    this.getAllPosts();
+  }
+
+  getPosts = (id, search, userposts, upvotes) => {
+    if (this.userposts === true) {
+      this.getUserPosts(id, search, userposts, upvotes);
+    } else {
+      this.getAllPosts();
+    }
+  };
+
+  getAllPosts = () => {
+    axios.get(`/api/posts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
+    })
+  };
+
+  getTopPosts = () => {
+    axios.get(`/api/topposts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
+    })
+  };
+
+  getBottomPosts = () => {
+    axios.get(`/api/bottomposts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
+    })
+  };
+
+
+
+
+  -------
+
+
+
+
+  import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,8 +57,7 @@ class Dashboard extends Component {
       posts: [],
       view: '',
       search: "",
-      community: '',
-      communities: []
+      userposts: true
     };
   }
 
@@ -32,60 +75,19 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.getViewPosts();
-    this.getAllCommunities();
+    this.getAllPosts();
   }
 
-  // componentDidMount(community) {
-  //   if (community === ''){
-  //     this.getAllCommunities();
-  //     this.getViewPosts();
-  //   } else {
-  //     this.getCommunityPosts(community);
-  //   }
-  // }
-
-  getAllCommunities = () => {
-    axios.get(`/api/getcommunities`).then((res) => {
-      this.setState({
-        communities: res.data,
-      });
-    });
-  };
-
-  getCommunityPosts = (community) => {
-    axios.get(`/api/posts/${community}`).then((res) => {
-      this.setState({
-        posts: res.data,
-      });
-    });
-  };
-
-  communityChange(e){
-    this.setState({
-        community: e.target.value
-    })
-  }
-
-  getViewPosts = async () => {
+  getViewPosts = () => {
     const {view}=this.state;
     let posts = [];
     if (view === "LP"){
-      await axios.get(`/api/bottomposts`).then((res) => {
-        posts = res.data
-      })
+      
     } else if (view === "MP"){
-      await axios.get(`/api/topposts`).then((res) => {
-        posts = res.data
-      })
+
     } else {
-      await axios.get(`/api/posts`).then((res) => {
-        posts = res.data
-      })
+
     }
-    this.setState ({
-      posts: posts
-    })
   }
 
   // getPosts = (id, search, userposts, upvotes) => {
@@ -97,7 +99,11 @@ class Dashboard extends Component {
   // };
 
   getAllPosts = () => {
-    
+    axios.get(`/api/posts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
+    })
   };
 
 
@@ -111,7 +117,9 @@ class Dashboard extends Component {
     axios.put(`/api/upvote/${id}/${upvotes}`)
     .then((res)=> {
       console.log(res.data)
-      this.getViewPosts();
+      this.setState ({
+        posts: res.data
+      })
     })
   };
 
@@ -119,7 +127,9 @@ class Dashboard extends Component {
     axios.put(`/api/downvote/${id}/${upvotes}`)
     .then((res)=> {
       console.log(res.data)
-      this.getViewPosts();
+      this.setState ({
+        posts: res.data
+      })
     })
   };
 
@@ -128,30 +138,24 @@ class Dashboard extends Component {
   }
 
   getTopPosts = () => {
-    this.setState ({
-      view: 'MP'
-    }, () => {
-      this.getViewPosts()
+    axios.get(`/api/topposts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
     })
   };
 
   getBottomPosts = () => {
-    this.setState ({
-      view: 'LP'
-    }, () => {
-      this.getViewPosts()
+    axios.get(`/api/bottomposts`).then((res) => {
+      this.setState({
+        posts: res.data,
+      })
     })
   };
 
   render() {
-    const { community, posts } = this.state;
-    let communityOptions = this.state.communities.map((e) => {
-      return (
-        <option onChange={(community) => this.getCommunity(community)} value={e.id}> {e.name} </option>
-      )
-    })
+    const { posts } = this.state;
     console.log(posts);
-    console.log(community)
     const displayPosts = posts.map((e) => {
       return (
         <div className='unknowntwo' key={e.id}>
@@ -181,7 +185,7 @@ class Dashboard extends Component {
 
             <div className='postbody'>
               <div className='community'>
-              r/{e.name} - Posted by {e.username}
+              r/Community - Posted by {e.username}
               </div>
                 
               <div className='title'>
@@ -192,7 +196,7 @@ class Dashboard extends Component {
 
                 <div className='image'>
                 <Link to={`/post/${e.id}`}>
-                  <img src={e.img} width="750" height="auto" />
+                  <img src={e.img}/>
                 </Link>
                 </div>
                 <br></br>
@@ -220,23 +224,20 @@ class Dashboard extends Component {
         <Link to="/submit"><button>Upload Image</button></Link>
         <Link to="/submit"><button>Add Link</button></Link>
 
+        <input
+          onClick={(e) => {
+            this.toggleCheck(e);
+            this.getPosts();
+          }}
+          type="checkbox"
+          id="userposts"
+          name="userposts"
+          defaultChecked
+        ></input>
+        <label for="userposts"> My Posts</label>
+
         <br></br>
         <br></br>
-
-        <div className='communities'>
-                
-                SELECT COMMUNITY:  
-                
-                <select onChange={(e) => this.communityChange(e)}>
-                
-                <option selected value="home">
-                  All
-                </option>
-
-                {communityOptions}
-                
-                </select>
-              </div>
 
         
         <button type="button" onClick={() => this.getTopPosts()}> Most Popular </button>

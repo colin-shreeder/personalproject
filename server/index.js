@@ -38,8 +38,9 @@ app.post('/api/auth/logout', authController.logout);
 
 app.post('/api/create', controller.createPost);
 app.get('/api/posts', controller.getAllPosts);
+app.get('/api/topposts', controller.getTopPosts);
+app.get('/api/bottomposts', controller.getBottomPosts);
 app.get('/api/getcommunities', controller.getAllCommunities);
-app.post('/api/posts/:userid', controller.getUserPosts);
 app.delete('/api/post/:postid', controller.delete);
 app.get('/api/post/:postid', controller.getPost);
 app.put("/api/edit/:postid", controller.updatePost);
@@ -48,6 +49,8 @@ app.put("/api/upvote/:postid/:upvotes", controller.upvote);
 app.put("/api/downvote/:postid/:upvotes", controller.downvote);
 
 app.post('/api/createcommunity', controller.createCommunity);
+
+app.get('/api/posts/:communityid', controller.getCommunityPosts);
 
 
 

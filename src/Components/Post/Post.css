@@ -1,0 +1,90 @@
+.upvotestwo {
+    background-color: #F8F9FA;
+    width: 75px;
+    margin: 10px 5px 0px 0px;
+}
+
+.containertwo {
+    background-color: #F8F9FA;
+    border-style: solid;
+    width: 1025px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    border-radius: 5px;
+    border-width: thin;
+}
+
+.postbodytwo {
+    border-style: none none none solid;
+    width: 925px;
+    border-width: thin;
+}
+
+.communitytwo {
+    display: flex;
+    justify-content: left;
+    margin: 10px 10px 0px 10px;
+}
+
+.posttitle {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 0px 10px;
+}
+
+.postimage {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 10px 10px;
+}
+
+.postcontent {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 10px 10px;
+}
+
+.options {
+    display: flex;
+    justify-content: left;
+    margin: 10px 10px 0px 10px;
+}
+
+.comments {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 0px 10px;
+}
+
+.unknowntwo {
+    display: flex;
+    justify-content: center;
+}
+
+.dashboardtwo {
+    background-color: #DAE0E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 500px;
+    width: 100%; */
+}
+
+.rotateimg180 {
+    transform: rotate(180deg);
+    margin: 4px 0px 0px 0px;
+}
+
+.downvote {
+    margin: 4px 0px 0px 0px;
+}
+
+.downvote:hover {
+    background-color: gray;
+  }
+
+  .rotateimg180:hover {
+    background-color: gray;
+  }

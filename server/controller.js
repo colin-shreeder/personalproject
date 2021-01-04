@@ -2,34 +2,61 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
 
-    getUserPosts: async (req, res) => {
-      const {id} = req.params;
-      const {userposts, search} = req.body;
-      const db = req.app.get('db');
-      
-      if(userposts === true && search !== null) {
-          const foundPost = db.posts.where({"title like": "%search%"})
-          res.status(200).send(foundPost)
-      } else if (userposts === false && search !== null) {
-          const foundPost = db.posts.where({"title like": "%search%", "author_id !=": id})
-          res.status(200).send(foundPost)
-      } else if (userposts === false && search === null) {
-          const foundPost = db.posts.where({"author_id !=": id})
-          res.status(200).send(foundPost)
-      } else {
-          const posts = await db.get_user_posts();
-          res.status(200).send(posts);
-      }
-  },
-
   getAllPosts: async (req, res, next) => {
     const db = req.app.get("db");
-  
+  console.log('test')
     db.get_all_posts()
       .then(response => {
         res.status(200).send(response);
       })
-      .catch(err => res.status(500).send(err));
+      .catch(err => {
+        console.log(err.message)
+        res.status(500).send(err)
+      }
+);
+  },
+
+  getCommunityPosts: async (req, res, next) => {
+    const db = req.app.get("db");
+    let community = this.props.match.params.community;
+  console.log('test')
+    db.get_by_id(community)
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => {
+        console.log(err.message)
+        res.status(500).send(err)
+      }
+);
+  },
+
+  getTopPosts: async (req, res, next) => {
+    const db = req.app.get("db");
+  console.log('test')
+    db.get_top_posts()
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => {
+        console.log(err.message)
+        res.status(500).send(err)
+      }
+);
+  },
+
+  getBottomPosts: async (req, res, next) => {
+    const db = req.app.get("db");
+  console.log('test')
+    db.get_bottom_posts()
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => {
+        console.log(err.message)
+        res.status(500).send(err)
+      }
+);
   },
 
   getAllCommunities: async (req, res, next) => {
@@ -56,17 +83,20 @@ delete: ( req, res, next ) => {
 },
 
 createPost: (req, res, next) => { 
-  let author_id = req.params;
+  let author_id = req.session.user.userid;
   let { title, img, content, upvotes, community} = req.body;
   const db = req.app.get("db");
-  console.log (title, img, content, upvotes, community, author_id)
+  console.log(req.session.user)
+  console.log (author_id, +community, upvotes)
 
-  db.create_post([title, img, content, author_id, upvotes, community])
+  db.create_post([title, img, content, author_id, upvotes, +community])
     .then(response => {
       res.status(200).send(response);
     })
-    .catch(err => res.status(500).send(err));
-  },
+    .catch(err =>{ 
+      console.log(err)
+      res.status(500).send(err);
+  })},
 
   createCommunity: (req, res, next) => { 
     let { name, description, topics } = req.body;
@@ -82,9 +112,9 @@ createPost: (req, res, next) => {
   getPost: (req,res,next) => {
   let { postid } = req.params;
   const db = req.app.get("db");
-
   db.get_by_id([postid])
     .then(response => {
+      console.log(response)
       res.status(200).send(response);
     })
     .catch(err => res.status(500).send(err));

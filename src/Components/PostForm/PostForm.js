@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import noimage from "../PostForm/noimage.png";
+import '../PostForm/PostForm.css';
 
 
 class PostForm extends Component {
@@ -40,7 +41,7 @@ getAllCommunities = () => {
 createPost(title, img, content, upvotes, community) {
  console.log(this.state)
   axios
-    .post(`/api/create`, { title, img, content, upvotes, community })
+    .post(`/api/create/`, { title, img, content, upvotes, community })
     .then(res => {
       // console.log(res);
       this.setState({ posts: res.data });
@@ -87,50 +88,53 @@ handleSubmit(e){
       console.log(community)
       return (
         <div className="Form">
+          <div className="header">
             <h1>Create a post</h1>
-          <form onSubmit={this.handleSubmit}>
+          </div>
 
-          Choose a community: 
-          <br></br>
-
-       
-
-          <select onChange={(e) => this.communityChange(e)}>
-              {communityOptions}
+        <div className='dropdown'>
+          <div className='custom-select'>
+            <select onChange={(e) => this.communityChange(e)}>
+              <option selected value="">
+                Choose a Community
+              </option>
+                {communityOptions}
             </select>
-
-
-          <br></br>
-              <label>
-                  <br></br>
+          </div>
+        </div>
+          
+        <div class='formbox'>
+          <form onSubmit={this.handleSubmit}>
+              <label className='label'>
                   <input type="text" placeholder="Post Title" onChange={(e) => this.handleChange(e)} name="title"/>
               </label>
-
-              <br/><br/>
-
-              <img src={this.img || noimage} alt="" height="200" width="200" />
-            
               <br></br>
               <label>
-                  <br></br>
-                  <input type="text" placeholder="Image URL" onChange={(e) => this.handleChange(e)} name="img"/>
+                    <input type="text" placeholder="Image URL (optional)" onChange={(e) => this.handleChange(e)} name="img"/>
               </label>
-              <br></br>
+                <br></br>
               <label>
                 
                   <br></br>
                   <input type="text" placeholder="Text (optional)" onChange={(e) => this.handleChange(e)} name="content"/>
               </label>
           </form>
+          
+          <div className='imagepreview'>
+            <img src={this.img || noimage} alt="" height="200" width="200" />
+          </div>
+          
+        </div>
 
-
-         <Link to='/dashboard' className="links"> <button type="submit"
+        <div className='lowerbox'>
+         <Link to='/dashboard'> <button type="submit"
             
             onClick={(e)=>{
             this.createPost(title, img, content, upvotes, community);
             this.handleSubmit(e);}}>
               Post
               </button> </Link>
+        </div>
 
             
             
