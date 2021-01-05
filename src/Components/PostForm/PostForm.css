@@ -31,14 +31,14 @@
     background-color: white;
     display: flex;
     width: 35%;
-    height: 400px;
+    height: 500px;
     justify-content: space-around;
     align-items: center;
     border-radius: 10px 0px 0px 10px;
 }
 
 .lowerbox {
-    height: 400px;
+    height: 500px;
     width: 35%;
     display: flex;
     background-color: white;

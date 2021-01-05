@@ -4,7 +4,6 @@ module.exports = {
 
   getAllPosts: async (req, res, next) => {
     const db = req.app.get("db");
-  console.log('test')
     db.get_all_posts()
       .then(response => {
         res.status(200).send(response);
@@ -18,22 +17,28 @@ module.exports = {
 
   getCommunityPosts: async (req, res, next) => {
     const db = req.app.get("db");
-    let community = this.props.match.params.community;
-  console.log('test')
-    db.get_by_id(community)
+    let community = req.params.communityid
+    console.log(community);
+    if (community === 'home'){
+      db.get_all_posts()
       .then(response => {
+        res.status(200).send(response);
+      })
+    } else {
+    db.get_by_community(community)
+      .then(response => {
+        console.log(response);
         res.status(200).send(response);
       })
       .catch(err => {
         console.log(err.message)
         res.status(500).send(err)
       }
-);
+)};
   },
 
   getTopPosts: async (req, res, next) => {
     const db = req.app.get("db");
-  console.log('test')
     db.get_top_posts()
       .then(response => {
         res.status(200).send(response);
@@ -47,7 +52,6 @@ module.exports = {
 
   getBottomPosts: async (req, res, next) => {
     const db = req.app.get("db");
-  console.log('test')
     db.get_bottom_posts()
       .then(response => {
         res.status(200).send(response);
@@ -86,8 +90,6 @@ createPost: (req, res, next) => {
   let author_id = req.session.user.userid;
   let { title, img, content, upvotes, community} = req.body;
   const db = req.app.get("db");
-  console.log(req.session.user)
-  console.log (author_id, +community, upvotes)
 
   db.create_post([title, img, content, author_id, upvotes, +community])
     .then(response => {
@@ -114,7 +116,6 @@ createPost: (req, res, next) => {
   const db = req.app.get("db");
   db.get_by_id([postid])
     .then(response => {
-      console.log(response)
       res.status(200).send(response);
     })
     .catch(err => res.status(500).send(err));
@@ -124,12 +125,10 @@ createPost: (req, res, next) => {
     let { title, content } = req.body;
     let {postid} = req.params;
   
-    console.log(title, content, postid);
     const db = req.app.get("db");
   
     db.update_post([title, content, postid])
       .then(response => {
-        console.log(response)
         res.status(200).send(response);
       })
       .catch(err => res.status(500).send(err));

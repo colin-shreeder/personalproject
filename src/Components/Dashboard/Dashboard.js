@@ -31,19 +31,19 @@ class Dashboard extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getViewPosts();
-    this.getAllCommunities();
-  }
-
-  // componentDidMount(community) {
-  //   if (community === ''){
-  //     this.getAllCommunities();
-  //     this.getViewPosts();
-  //   } else {
-  //     this.getCommunityPosts(community);
-  //   }
+  // componentDidMount() {
+  //   this.getViewPosts();
+  //   this.getAllCommunities();
   // }
+
+  componentDidMount() {
+    if (this.state.community === ''){
+      this.getAllCommunities();
+      this.getViewPosts();
+    } else {
+      // this.getCommunityPosts(this.state.community);
+    }
+  }
 
   getAllCommunities = () => {
     axios.get(`/api/getcommunities`).then((res) => {
@@ -53,19 +53,14 @@ class Dashboard extends Component {
     });
   };
 
-  getCommunityPosts = (community) => {
-    axios.get(`/api/posts/${community}`).then((res) => {
+  getCommunityPosts = (e) => {
+    e.preventDefault();
+    axios.get(`/api/posts/${e.target.value}`).then((res) => {
       this.setState({
-        posts: res.data,
+        posts: res.data
       });
     });
   };
-
-  communityChange(e){
-    this.setState({
-        community: e.target.value
-    })
-  }
 
   getViewPosts = async () => {
     const {view}=this.state;
@@ -87,25 +82,6 @@ class Dashboard extends Component {
       posts: posts
     })
   }
-
-  // getPosts = (id, search, userposts, upvotes) => {
-  //   if (this.userposts === true) {
-  //     this.getUserPosts(id, search, userposts, upvotes);
-  //   } else {
-  //     this.getAllPosts();
-  //   }
-  // };
-
-  getAllPosts = () => {
-    
-  };
-
-
-  toggleCheck = (e) => {
-    this.setState({
-      userposts: e.target.checked,
-    });
-  };
 
   upVote = (id,upvotes) => {
     axios.put(`/api/upvote/${id}/${upvotes}`)
@@ -147,11 +123,9 @@ class Dashboard extends Component {
     const { community, posts } = this.state;
     let communityOptions = this.state.communities.map((e) => {
       return (
-        <option onChange={(community) => this.getCommunity(community)} value={e.id}> {e.name} </option>
+        <option value={e.id}> {e.name} </option>
       )
     })
-    console.log(posts);
-    console.log(community)
     const displayPosts = posts.map((e) => {
       return (
         <div className='unknowntwo' key={e.id}>
@@ -162,7 +136,7 @@ class Dashboard extends Component {
             <div className='upvotes'>
               
              
-              <img onClick={() => this.upVote(e.id,e.upvotes)} src={downvote} alt="" height="25" width="25" class="rotateimg180" />
+              <img onClick={() => this.upVote(e.id,e.upvotes)} src={downvote} alt="" height="25" width="25" className="rotateimg180" />
                 
                 <br></br>
               
@@ -170,14 +144,13 @@ class Dashboard extends Component {
                 
                 <br></br>
               
-              <img onClick={() => this.downVote(e.id,e.upvotes)} src={downvote} alt="" height="25" width="25" class="downvote"  />
+              <img onClick={() => this.downVote(e.id,e.upvotes)} src={downvote} alt="" height="25" width="25" className="downvote"  />
              
               
                 <br></br>
             </div>
 
 
-            {console.log(e)}
 
             <div className='postbody'>
               <div className='community'>
@@ -227,7 +200,7 @@ class Dashboard extends Component {
                 
                 SELECT COMMUNITY:  
                 
-                <select onChange={(e) => this.communityChange(e)}>
+                <select onChange={(e) => this.getCommunityPosts(e)}>
                 
                 <option selected value="home">
                   All
@@ -247,6 +220,7 @@ class Dashboard extends Component {
         <br></br>
 
         {displayPosts}
+
       </div>
     );
   }
