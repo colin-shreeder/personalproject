@@ -30,19 +30,41 @@
 .formbox {
     background-color: white;
     display: flex;
-    width: 70%;
+    width: 35%;
     height: 400px;
-    margin: auto;
     justify-content: space-around;
     align-items: center;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .lowerbox {
-    height: 50px;
-    width: 70%;
+    height: 400px;
+    width: 35%;
+    display: flex;
     background-color: white;
-    margin: auto;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 10px 10px 0px;
+    align-items: center;
+    justify-content: center;
 }
 
+.inputsone {
+    width: 400px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.inputstwo {
+    width: 400px;
+    height: 250px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.bigbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -18,3 +18,13 @@ input, textarea {
     font-size: 21px;
     font-weight: 200;
 }
+
+.search {
+    width: 185px;
+    height: 25px;
+    border-radius: 4px;
+}
+
+.reddit {
+    margin: 5px 0px 0px 0px;
+}

@@ -102,39 +102,39 @@ handleSubmit(e){
             </select>
           </div>
         </div>
-          
+      <div className='bigbox'>
         <div class='formbox'>
           <form onSubmit={this.handleSubmit}>
               <label className='label'>
-                  <input type="text" placeholder="Post Title" onChange={(e) => this.handleChange(e)} name="title"/>
+                  <input className="inputsone" type="text" placeholder="Post Title" onChange={(e) => this.handleChange(e)} name="title"/>
               </label>
               <br></br>
               <label>
-                    <input type="text" placeholder="Image URL (optional)" onChange={(e) => this.handleChange(e)} name="img"/>
+                    <input className="inputsone" type="text" placeholder="Image URL (optional)" onChange={(e) => this.handleChange(e)} name="img"/>
               </label>
                 <br></br>
-              <label>
-                
-                  <br></br>
-                  <input type="text" placeholder="Text (optional)" onChange={(e) => this.handleChange(e)} name="content"/>
+                <br></br>
+              <label> 
+              
+                  <textarea className="inputstwo" placeholder="Text (optional)" cols="50" rows="10" name="content" onChange={(e) => this.handleChange(e)} ></textarea>
               </label>
+
+              <Link to='/dashboard'> 
+                <button type="submit"onClick={(e)=>{
+                  this.createPost(title, img, content, upvotes, community);
+                  this.handleSubmit(e);}}>
+                    Post
+                </button> 
+              </Link>
           </form>
-          
-          <div className='imagepreview'>
-            <img src={this.img || noimage} alt="" height="200" width="200" />
-          </div>
           
         </div>
 
         <div className='lowerbox'>
-         <Link to='/dashboard'> <button type="submit"
-            
-            onClick={(e)=>{
-            this.createPost(title, img, content, upvotes, community);
-            this.handleSubmit(e);}}>
-              Post
-              </button> </Link>
+            <img src={this.img || noimage} alt="" height="300" width="300" />
+          
         </div>
+      </div>
 
             
             

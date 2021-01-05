@@ -14,7 +14,7 @@ class Post extends Component {
             title: '',
             img: '',
             content: '',
-            author: '',
+            username: '',
             authorPicture: '',
             upvotes: 0,
             post: [],
@@ -33,7 +33,7 @@ class Post extends Component {
             this.setState({ 
                 img: post.img,
                 content: post.content,
-                author: post.author,
+                username: post.username,
                 title: post.title,
                 upvotes: post.upvotes
              });
@@ -75,7 +75,7 @@ class Post extends Component {
 
     render() {
         let id = this.props.match.params.postid
-        const {img, content, title, upvotes, username, author} = this.state;
+        const {img, content, title, upvotes, username} = this.state;
         return (
            <div className='dashboardtwo'> 
               <div className='containertwo'>
@@ -97,11 +97,11 @@ class Post extends Component {
                 <div className='postbodytwo'>
                     
                     <div className="communitytwo">
-                        r/Community - Posted by {author}
+                        r/Community - Posted by {username}
                     </div>
                     
                     <div className='posttitle'>
-                        <h2>{title}</h2>
+                        {title}
                     </div>
 
                     <div className='postcontent'>
@@ -113,8 +113,7 @@ class Post extends Component {
                     </div>
                        
                       
-                      <br></br>
-                      <br></br>
+            
 
                     <div className='options'>
                           # of Comments
@@ -125,12 +124,16 @@ class Post extends Component {
                           <Link to={`/edit/${id}`}><button>Edit</button></Link>
                     </div>
 
-                    <br></br>
-                    <br></br>
-                    <div className='comments'>
+                      <br></br>
+
+                    <div className='commentheading'>
                       Comment as username
-                      <br></br> 
-                      <input type='text' placeholder='What are your thoughts?'></input>
+                    </div>
+
+                    <div className='commentinput'>
+                      <textarea className="commenttext" placeholder="What are your thoughts?" cols="50" rows="10"></textarea>
+                    </div>
+                    <div className='commentbutton'>
                       <button>Comment</button>
                     </div>
 

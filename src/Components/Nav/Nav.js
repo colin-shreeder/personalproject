@@ -56,17 +56,16 @@ class Nav extends Component {
             
             
               <Link to='/dashboard' className="links">
-              <img src={redditlogo} alt="" height="50" width="50" />
+              <img src={redditlogo} className="reddit" alt="" height="50" width="50" />
               </Link>
 
               <Link to='/dashboard' className="links"> <p>HOME</p> </Link>
-              
-
-              <input type="text" placeholder="Search"/>
 
               <Link to='/submit' className="links"> <p>CREATE POST</p>  </Link>
 
               <Link to='/submit_community' className="links"> <p> CREATE COMMUNITY </p>  </Link>
+
+              <input className="search" type="text" placeholder="Search"/>
 
               <Link to='/' className="links"  onClick={() => this.handleclicklogout()}>  <p>LOGOUT</p> </Link>
             

@@ -26,12 +26,15 @@
     display: flex;
     justify-content: left;
     margin: 10px 10px 0px 10px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .posttitle {
     display: flex;
     justify-content: left;
-    margin: 0px 10px 0px 10px;
+    margin: 10px;
+    font-size: 20px;
 }
 
 .postimage {
@@ -52,7 +55,26 @@
     margin: 10px 10px 0px 10px;
 }
 
-.comments {
+.commentheading {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 0px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.commentinput {
+    display: flex;
+    justify-content: left;
+    margin: 0px 10px 0px 10px;
+}
+
+.commenttext{
+    width: 900px;
+    border-radius: 5px;
+}
+
+.commentbutton {
     display: flex;
     justify-content: left;
     margin: 0px 10px 0px 10px;
