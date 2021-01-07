@@ -18,28 +18,44 @@ class Post extends Component {
             authorPicture: '',
             upvotes: 0,
             post: [],
-            username: ''
+            username: '',
+            comments: [],
+            body: ''
         }
     }
 
       componentDidMount() {
+        this.getPost();
+        this.getComments();
+      }
+
+      getPost(){
         let id = this.props.match.params.postid;
         console.log(id);
         axios
           .get(`/api/post/${id}`)
           .then(res => {
-              let post = res.data[0]
-              console.log(post)
+              const post = res.data[0]
             this.setState({ 
                 img: post.img,
                 content: post.content,
-                username: post.username,
+                author: post.author,
                 title: post.title,
-                upvotes: post.upvotes
-             });
+                upvotes: post.upvotes,
+                content: post.content });
           })
           .catch(err => console.log(err));
       }
+
+      getComments() {
+        let id = this.props.match.params.postid;
+        console.log(id);
+        axios.get(`/api/getcomments/${id}`).then((res) => {
+        this.setState({
+          comments: res.data,
+        });
+      });
+    };
 
       deleteById() {
         let id = this.props.match.params.postid;
@@ -50,8 +66,26 @@ class Post extends Component {
             this.props.history.push('/dashboard')
           })
           .catch(err => console.log(err));
-          
-      }
+      };
+
+      createComment(body) {
+        console.log(this.state)
+        console.log(body);
+        let post_id = this.props.match.params.postid;
+         axios
+           .post(`/api/comment/`, {body, post_id})
+           .then(res => {
+             // console.log(res);
+             this.setState({comments: res.data});
+           })
+           .then(() => {
+             this.setState({
+               redirect: true
+             });
+           })
+           .catch(err => console.log(err));
+
+        }
 
       upVote = (id,upvotes) => {
         axios.put(`/api/upvote/${id}/${upvotes}`)
@@ -73,9 +107,48 @@ class Post extends Component {
         })
       };
 
+      handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSubmit(e){
+      e.preventDefault()
+    }
+
     render() {
         let id = this.props.match.params.postid
-        const {img, content, title, upvotes, username} = this.state;
+        const {img, content, title, upvotes, username, body} = this.state;
+        console.log(this.state.body)
+
+        const displayComments = this.state.comments.map((e) => {
+          return (
+            <div className='unknowntwo' key={e.id}>
+    
+              
+              <div className='container'>
+    
+    
+    
+                <div className='postbody'>
+                  <div className='community'>
+                  Posted by author
+                  </div>
+                    
+                  <div className='body'>
+                      {e.body}
+                  </div>
+    
+                    <br></br>
+                    <br></br>
+                </div>
+              </div>
+            </div>
+          );
+        });
+
+        
         return (
            <div className='dashboardtwo'> 
               <div className='containertwo'>
@@ -131,11 +204,19 @@ class Post extends Component {
                     </div>
 
                     <div className='commentinput'>
-                      <textarea className="commenttext" placeholder="What are your thoughts?" cols="50" rows="10"></textarea>
+                      <textarea name='body' className="commenttext" placeholder="What are your thoughts?" cols="50" rows="10" onChange={(e) => this.handleChange(e)}></textarea>
                     </div>
+
                     <div className='commentbutton'>
-                      <button>Comment</button>
+                      <button type="submit" onClick={(e)=>{
+                        this.createComment(body);
+                        this.handleSubmit(e)
+                        this.componentDidMount();}}>Comment</button>
                     </div>
+                    <br></br>
+                    Comments
+                    <br></br>
+                    {displayComments}
 
                 </div>
               </div>

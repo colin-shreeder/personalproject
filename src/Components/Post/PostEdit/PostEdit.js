@@ -20,6 +20,10 @@ class PostEdit extends Component {
     }
 
       componentDidMount() {
+        this.getPost();
+      }
+
+      getPost () {
         let id = this.props.match.params.postid;
         console.log(id);
         axios

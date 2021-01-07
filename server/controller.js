@@ -100,6 +100,21 @@ createPost: (req, res, next) => {
       res.status(500).send(err);
   })},
 
+  createComment: (req, res, next) => { 
+    console.log(req.body);
+    let author_id = req.session.user.userid;
+    let {body, post_id} = req.body;
+    const db = req.app.get("db");
+  
+    db.create_comment([body, author_id, post_id])
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err =>{ 
+        console.log(err)
+        res.status(500).send(err);
+    })},
+
   createCommunity: (req, res, next) => { 
     let { name, description, topics } = req.body;
     const db = req.app.get("db");
@@ -120,6 +135,16 @@ createPost: (req, res, next) => {
     })
     .catch(err => res.status(500).send(err));
   },
+
+  getComments: (req,res,next) => {
+    let { postid } = req.params;
+    const db = req.app.get("db");
+    db.get_comments([postid])
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => res.status(500).send(err));
+    },
 
   updatePost: (req, res, next) => {
     let { title, content } = req.body;
