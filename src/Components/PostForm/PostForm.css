@@ -1,6 +1,6 @@
 .Form {
     background-color: #DAE0E6;
-    height: 800px;
+    height: 100%;
     width: 100%;
 }
 
@@ -30,41 +30,242 @@
 .formbox {
     background-color: white;
     display: flex;
-    width: 35%;
-    height: 500px;
+    width: 70%;
+    height: 300px;
     justify-content: space-around;
     align-items: center;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 0px 0px 10px 10px;
+    margin: 0px 0px 50px 0px;
 }
 
 .lowerbox {
-    height: 500px;
-    width: 35%;
+    height: 330px;
+    width: 70%;
     display: flex;
     background-color: white;
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 10px 10px 0px 0px;
     align-items: center;
     justify-content: center;
 }
 
 .inputsone {
-    width: 400px;
-    height: 30px;
-    font-size: 14px;
+    width: 700px;
+    font-size: 16px;
     border-radius: 5px;
     margin: 2px;
 }
 
-.inputstwo {
-    width: 400px;
-    height: 250px;
-    font-size: 14px;
-    border-radius: 5px;
-    margin: 5px;
-}
-
 .bigbox {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
+}
+
+
+
+	
+@media (max-width: 1185px){
+    .Form {
+        background-color: #DAE0E6;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .header {
+        height: 100px;
+        width: 70%;
+        margin: auto;
+        display: flex;
+        align-items: flex-end;
+        font-size: 12px;
+        border: solid none solid none;
+        border-color: white;
+        border-style: none none solid none;
+        border-width: 2px;
+    }
+    
+    .dropdown {
+        height: 70px;
+        width: 70%;
+        margin: auto;
+        background-color: #DAE0E6;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .formbox {
+        background-color: white;
+        display: flex;
+        width: 70%;
+        height: 300px;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 0px 0px 10px 10px;
+        margin: 0px 0px 50px 0px;
+    }
+    
+    .lowerbox {
+        height: 330px;
+        width: 70%;
+        display: flex;
+        background-color: white;
+        border-radius: 10px 10px 0px 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .inputsone {
+        width: 600px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 2px;
+    }
+    
+    
+    .bigbox {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 900px){
+    .Form {
+        background-color: #DAE0E6;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .header {
+        height: 100px;
+        width: 70%;
+        margin: auto;
+        display: flex;
+        align-items: flex-end;
+        font-size: 12px;
+        border: solid none solid none;
+        border-color: white;
+        border-style: none none solid none;
+        border-width: 2px;
+    }
+    
+    .dropdown {
+        height: 70px;
+        width: 70%;
+        margin: auto;
+        background-color: #DAE0E6;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .formbox {
+        background-color: white;
+        display: flex;
+        width: 70%;
+        height: 300px;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 0px 0px 10px 10px;
+        margin: 0px 0px 50px 0px;
+    }
+    
+    .lowerbox {
+        height: 330px;
+        width: 70%;
+        display: flex;
+        background-color: white;
+        border-radius: 10px 10px 0px 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .inputsone {
+        width: 500px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 2px;
+    }
+    
+    
+    .bigbox {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+/* /////////////////////////////////// */
+
+
+@media (max-width: 750px){
+    .Form {
+        background-color: #DAE0E6;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .header {
+        height: 100px;
+        width: 70%;
+        margin: auto;
+        display: flex;
+        align-items: flex-end;
+        font-size: 12px;
+        border: solid none solid none;
+        border-color: white;
+        border-style: none none solid none;
+        border-width: 2px;
+    }
+    
+    .dropdown {
+        height: 70px;
+        width: 70%;
+        margin: auto;
+        background-color: #DAE0E6;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .formbox {
+        background-color: white;
+        display: flex;
+        width: 70%;
+        height: 300px;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 0px 0px 10px 10px;
+        margin: 0px 0px 50px 0px;
+    }
+    
+    .lowerbox {
+        height: 330px;
+        width: 70%;
+        display: flex;
+        background-color: white;
+        border-radius: 10px 10px 0px 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .inputsone {
+        width: 320px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 2px;
+    }
+    
+    
+    .bigbox {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
 }

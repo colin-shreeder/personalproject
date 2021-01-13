@@ -116,7 +116,7 @@ handleSubmit(e){
                 <br></br>
               <label> 
               
-                  <textarea className="inputstwo" placeholder="Text (optional)" cols="50" rows="10" name="content" onChange={(e) => this.handleChange(e)} ></textarea>
+                  <textarea className="inputsone" placeholder="Text (optional)" cols="50" rows="10" name="content" onChange={(e) => this.handleChange(e)} ></textarea>
               </label>
 
               <br></br>

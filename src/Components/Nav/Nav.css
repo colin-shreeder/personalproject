@@ -28,3 +28,83 @@ input, textarea {
 .reddit {
     margin: 5px 0px 0px 0px;
 }
+
+
+
+/* /////////////////////// */
+
+
+@media (max-width: 775px){
+
+    .nav {
+        background-color: rgba(255, 0, 0, .2);
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 60px;
+        border: solid;
+    }
+    
+    
+    input, textarea {
+        background-color: #F6F7F8
+    }
+    
+    .links{
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 200;
+    }
+    
+    .search {
+        width: 135px;
+        height: 16px;
+        border-radius: 4px;
+    }
+    
+    .reddit {
+        margin: 5px 0px 0px 0px;
+    }
+
+}
+
+
+/* /////////////// */
+
+@media (max-width: 600px){
+
+    .nav {
+        background-color:rgba(255, 0, 0, .2);
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 60px;
+        border: solid;
+    }
+    
+    
+    input, textarea {
+        background-color: #F6F7F8
+    }
+    
+    .links{
+        color: black;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 200;
+        margin: 0px 10px 0px 0px;
+    }
+    
+    .search {
+        width: 125px;
+        height: 14px;
+        border-radius: 4px;
+        margin: 0px 10px 0px 0px;
+    }
+    
+    .reddit {
+        margin: 5px 0px 0px 0px;
+    }
+
+}

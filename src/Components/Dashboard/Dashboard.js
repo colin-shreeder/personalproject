@@ -165,7 +165,7 @@ class Dashboard extends Component {
 
                 <div className='image'>
                 <Link to={`/post/${e.id}`}>
-                  <img src={e.img} width="750" height="auto" />
+                  <img src={e.img} className='imagesize' />
                 </Link>
                 </div>
                 <br></br>
@@ -181,6 +181,7 @@ class Dashboard extends Component {
         
         <br></br>
 
+
         <Link to="/submit">
           {" "}
           <input
@@ -190,8 +191,10 @@ class Dashboard extends Component {
             name="search"
           />{" "}
         </Link>
-        <Link to="/submit"><button>Upload Image</button></Link>
-        <Link to="/submit"><button>Add Link</button></Link>
+
+        <Link className="hover" to="/submit"><button>Upload Image</button></Link>
+        
+        <Link className="hover" to="/submit"><button>Add Link</button></Link>
 
         <br></br>
         <br></br>

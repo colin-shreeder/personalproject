@@ -4,10 +4,28 @@
     margin: 10px 5px 0px 0px;
 }
 
+.upvotesthree {
+    background-color: white;
+    width: 50px;
+    margin: auto;
+}
+
 .containertwo {
     background-color: #F8F9FA;
     border-style: solid;
     width: 1025px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    border-radius: 5px;
+    border-width: thin;
+}
+
+.containerthree {
+    background-color:white;
+    border-style: solid;
+    width: 700px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -22,12 +40,21 @@
     border-width: thin;
 }
 
+.postbodythree {
+    border-style: none none none solid;
+    width: 800px;
+    border-width: thin;
+    background-color:white;
+    margin: 0px 50px 0px 0px;
+}
+
 .communitytwo {
     display: flex;
     justify-content: left;
     margin: 10px 10px 0px 10px;
     font-size: 12px;
     font-weight: bold;
+    background-color: white;
 }
 
 .posttitle {
@@ -78,6 +105,13 @@
     display: flex;
     justify-content: left;
     margin: 0px 10px 0px 10px;
+}
+
+.comment {
+    background-color: white;
+    display: flex;
+    margin: 10px 10px 0px 10px;
+    justify-content: left;
 }
 
 .unknowntwo {

@@ -95,6 +95,7 @@ class Post extends Component {
             posts: res.data
           })
         })
+        this.componentDidMount();
       };
     
       downVote = (id,upvotes) => {
@@ -105,6 +106,7 @@ class Post extends Component {
             posts: res.data
           })
         })
+        this.componentDidMount();
       };
 
       handleChange(e){
@@ -118,25 +120,38 @@ class Post extends Component {
     }
 
     render() {
-        let id = this.props.match.params.postid
+        let id = this.props.match.params.postid;
         const {img, content, title, upvotes, username, body} = this.state;
         console.log(this.state.body)
 
         const displayComments = this.state.comments.map((e) => {
           return (
             <div className='unknowntwo' key={e.id}>
+
     
               
-              <div className='container'>
+              <div className='containerthree'>
+
+              <div className='upvotesthree'>
+                <img src={downvote} alt="" height="25" width="25" class="rotateimg180" />
+
+                <br></br>
+              
+                 0
+                
+                <br></br>
+              
+                  <img src={downvote} alt="" height="25" width="25" class="downvote"  />
+
+              </div>
     
     
-    
-                <div className='postbody'>
-                  <div className='community'>
+                <div className='postbodythree'>
+                  <div className='communitytwo'>
                   Posted by author
                   </div>
                     
-                  <div className='body'>
+                  <div className='comment'>
                       {e.body}
                   </div>
     
@@ -154,7 +169,7 @@ class Post extends Component {
               <div className='containertwo'>
                 <div className='upvotestwo'>
                   
-                  <img onClick={() => this.upVote(id,upvotes)} src={downvote} alt="" height="25" width="25" class="rotateimg180" />
+                  <img onClick={() => this.upVote(id, upvotes)} src={downvote} alt="" height="25" width="25" class="rotateimg180" />
                   
                     <br></br>
               
@@ -162,7 +177,7 @@ class Post extends Component {
                 
                     <br></br>
               
-                  <img onClick={() => this.downVote(id,upvotes)} src={downvote} alt="" height="25" width="25" class="downvote"  />
+                  <img onClick={() => this.downVote(id, upvotes)} src={downvote} alt="" height="25" width="25" class="downvote"  />
              
                     <br></br>
                 </div>
@@ -219,10 +234,6 @@ class Post extends Component {
                     {displayComments}
 
                 </div>
-              </div>
-
-              <div className='communityinfo'>
-                    Community Info
               </div>
           </div>
         )
