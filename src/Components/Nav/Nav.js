@@ -65,8 +65,6 @@ class Nav extends Component {
 
               <Link to='/submit_community' className="links"> <p> CREATE COMMUNITY </p>  </Link>
 
-              <input className="search" type="text" placeholder="Search"/>
-
               <Link to='/' className="links"  onClick={() => this.handleclicklogout()}>  <p>LOGOUT</p> </Link>
             
 

@@ -213,8 +213,8 @@
 
     .upvotes {
         background-color: #F8F9FA;
-        width: 75px;
-        margin: 10px 0px 0px 0px;
+        width: 35px;
+        margin: 10px 3px 0px 0px;
     }
 
     .arrowsize {
@@ -223,9 +223,9 @@
     }
     
     .container {
-        background-color: #F8F9FA;
+        background-color: red;
         border-style: solid;
-        width: 650px;
+        width: 500px;
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -236,7 +236,7 @@
     
     .postbody {
         border-style: none none none solid;
-        width: 925px;
+        width: 350px;
         border-width: thin;
     }
     
@@ -263,7 +263,8 @@
     .image {
         display: flex;
         justify-content: left;
-        margin: 0px 10px 10px 10px;
+        margin: -10px 10px 10px 10px;
+
     }
     
     .unknowntwo {
@@ -295,7 +296,7 @@
       }
 
       .imagesize {
-        width: 550px;
+        width: 340px;
         height: auto;
     }
 
@@ -316,7 +317,7 @@
 
 
 
-  @media (max-width: 670px){
+  /* @media (max-width: 830px){
 
     .upvotes {
         background-color: #F8F9FA;
@@ -410,4 +411,4 @@
         height: auto;
     }
 
-  }
+  }  */

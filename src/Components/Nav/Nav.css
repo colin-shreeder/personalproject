@@ -34,7 +34,7 @@ input, textarea {
 /* /////////////////////// */
 
 
-@media (max-width: 775px){
+@media (max-width: 830px){
 
     .nav {
         background-color: rgba(255, 0, 0, .2);
@@ -43,6 +43,7 @@ input, textarea {
         justify-content: space-evenly;
         height: 60px;
         border: solid;
+        position: fixed;
     }
     
     
