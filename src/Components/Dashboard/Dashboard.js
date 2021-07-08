@@ -78,6 +78,7 @@ class Dashboard extends Component {
         posts = res.data
       })
     }
+    console.log(posts);
     this.setState ({
       posts: posts
     })

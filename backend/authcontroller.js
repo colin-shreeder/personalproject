@@ -22,7 +22,6 @@ module.exports = {
 
     login: async (req, res) => {
       const db = req.app.get('db');
-      console.log(db);
       const { username, password } = req.body;
       const [foundUser] = await db.check_user(username);
       if(!foundUser){

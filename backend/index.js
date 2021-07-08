@@ -39,10 +39,6 @@ massive({
 
 app.use(express.static(__dirname + '/../build'))
 
-app.get('*', (req,res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'))
-})
-
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });  
@@ -82,5 +78,8 @@ app.put("/api/downvote/:postid/:upvotes", controller.downvote);
 //DELETE
 app.delete('/api/post/:postid', controller.delete);
 
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 //////////////////////
